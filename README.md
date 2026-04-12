@@ -1,4 +1,6 @@
 # Robot-Table Setup
+Software prerequisites:
+*TO DO*
 
 ## Simulation
 Start Gazebo Simulation: 
@@ -6,7 +8,13 @@ Start Gazebo Simulation:
 ros2 launch robot_table_gazebo ur_sim_control.launch.py 
 ```
 > [!WARNING]
-> Before launching the Gazebo simulation, some Gazebo environment variables need to be set. [^1]
+> Before launching the Gazebo simulation, some Gazebo environment variables need to be set. 
+
+```bash
+export GZ_SIM_RESOURCE_PATH=$GZ_SIM_RESOURCE_PATH:~/ros2_ws/install/robot_table_description/share
+export GZ_SIM_RESOURCE_PATH=$GZ_SIM_RESOURCE_PATH:~/ros2_ws/install/robotiq_description/share
+export GZ_SIM_RESOURCE_PATH=$GZ_SIM_RESOURCE_PATH:/opt/ros/jazzy/share
+```
 
 Start Moveit MoveGroup:
 ```bash
@@ -75,9 +83,3 @@ ros2 launch ros_gz_sim gz_spawn_model.launch file:=$HOME/ros2_ws/src/robot_table
 
 ## Real Robot
 *TO DO*
-
-[^1]: ```bash
-export GZ_SIM_RESOURCE_PATH=$GZ_SIM_RESOURCE_PATH:~/ros2_ws/install/robot_table_description/share
-export GZ_SIM_RESOURCE_PATH=$GZ_SIM_RESOURCE_PATH:~/ros2_ws/install/robotiq_description/share
-export GZ_SIM_RESOURCE_PATH=$GZ_SIM_RESOURCE_PATH:/opt/ros/jazzy/share
-```
