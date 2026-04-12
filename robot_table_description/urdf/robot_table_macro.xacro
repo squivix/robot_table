@@ -4,6 +4,8 @@
   <xacro:include filename="$(find robotiq_description)/urdf/robotiq_2f_85_macro.urdf.xacro"/>
   <xacro:include filename="$(find robotiq_description)/urdf/ur_to_robotiq_adapter.urdf.xacro"/>
 
+  
+
   <xacro:macro name="robot_table" params="
     parent
     *origin
@@ -23,12 +25,14 @@
     <link name="table">
       <visual>
         <geometry>
+          <!--<mesh filename="file://$(find robot_table_description)/meshes/robo_table.dae"/>-->
           <mesh filename="package://robot_table_description/meshes/robo_table.dae"/>
         </geometry>
         <origin xyz="0 0 -0.01" rpy="${pi/2} 0 0"/>
       </visual>
       <collision>
         <geometry>
+          <!--<mesh filename="file://$(find robot_table_description)/meshes/robo_table.dae"/>-->
           <mesh filename="package://robot_table_description/meshes/robo_table.dae"/>
         </geometry>
         <origin xyz="0 0 -0.01" rpy="${pi/2} 0 0"/>
