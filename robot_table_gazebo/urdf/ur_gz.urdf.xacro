@@ -102,16 +102,12 @@
     transmission_hw_interface="$(arg transmission_hw_interface)"
   />
   
-  <xacro:robotiq_gripper
+  <!-- Physical gripper links are already emitted by robot_table_macro.xacro (include_ros2_control="false").
+       Add the ros2_control block here with sim_gazebo="true" for the Gazebo hardware plugin. -->
+  <xacro:robotiq_gripper_ros2_control
       name="robotiq_gripper"
       prefix=""
-      parent="robotiq_85_base"
-      com_port="/tmp/ttyUR"
-      use_fake_hardware="true"
-      include_ros2_control="true"
       sim_gazebo="true"
-    >
-    <origin xyz="0 0 0" rpy="0 0 0" /> 
-  </xacro:robotiq_gripper>
+    />
 
 </robot>

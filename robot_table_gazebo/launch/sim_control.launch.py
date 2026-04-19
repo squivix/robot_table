@@ -48,15 +48,16 @@ from launch.substitutions import (
 from launch_ros.actions import Node
 from launch_ros.substitutions import FindPackageShare
 from launch.actions import SetEnvironmentVariable
+from ament_index_python.packages import get_package_share_directory
 
 def launch_setup(context, *args, **kwargs):
 
     set_gz_resource_paths = [
-    SetEnvironmentVariable(
+        SetEnvironmentVariable(
             name="GZ_SIM_RESOURCE_PATH",
             value="/opt/ros/jazzy/share:" +
-                  "/home/dattelpalmara/ros2_ws/install/robot_table_description/share" + ":" +
-                  "/home/dattelpalmara/ros2_ws/install/robotiq_description/share"
+                  get_package_share_directory("robot_table_description") + "/.." + ":" +
+                  get_package_share_directory("robotiq_description") + "/.."
         )
     ]
    
