@@ -5,7 +5,7 @@ Software prerequisites:
 ## Simulation
 Start Gazebo Simulation: 
 ```bash
-ros2 launch robot_table_gazebo ur_sim_control.launch.py 
+ros2 launch robot_table_gazebo sim_control.launch.py 
 ```
 > [!WARNING]
 > Before launching the Gazebo simulation, some Gazebo environment variables need to be set. 
@@ -75,7 +75,7 @@ ros2 action send_goal /robotiq_gripper_controller/gripper_cmd control_msgs/actio
 
 How to spawn objects in Simulation: 
 ```bash
-ros2 launch ros_gz_sim gz_spawn_model.launch file:=$HOME/ros2_ws/src/robot_table/robot_table_gazebo/objects/klotz.sdf x:=0.0 y:=0.0 z:=5.0 name:=Klotz
+ros2 launch ros_gz_sim gz_spawn_model.launch.py file:=$HOME/ros2_ws/robot_table/src/robot_table_gazebo/objects/klotz.sdf x:=0.0 y:=0.0 z:=1.2 entity_name:=klotz1
 ```
 
 ## Mock Hardware
