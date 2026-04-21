@@ -3,6 +3,8 @@ Software prerequisites:
 *TO DO*
 
 ## Simulation
+<img src="images/Gazebo_Sim.png" alt="Bildbeschreibung" style="width:100%;"/>
+
 Start Gazebo Simulation: 
 ```bash
 ros2 launch robot_table_gazebo ur_sim_control.launch.py 
@@ -79,7 +81,39 @@ ros2 launch ros_gz_sim gz_spawn_model.launch file:=$HOME/ros2_ws/src/robot_table
 ```
 
 ## Mock Hardware
-*TO DO*
+Before controlling the real robot, you can also test what would happen by visualizing the robot’s motions in rviz.
+
+```bash
+ros2 launch robot_table_control start_robot.launch.py use_mock_hardware:=true launch_rviz:=false
+```
 
 ## Real Robot
-*TO DO*
+Listen to tool communication port: 
+```bash
+ros2 launch robot_table_control ur_tool_communication.py
+```
+
+Start robot and gripper ros2 controller: 
+```bash
+ros2 launch robot_table_control start_robot.launch.py use_mock_hardware:=false launch_rviz:=false
+```
+
+Load external Control URCap on teach panel:
+```bash
+ros2 service call /dashboard_client/load_program ur_dashboard_msgs/srv/Load "filename: external_control.urp"
+```
+
+Start the URCap: 
+```bash
+ros2 service call /dashboard_client/play std_srvs/srv/Trigger {}
+```
+
+Start Moveit Movegroup: 
+```bash
+ros2 launch robot_table_moveit_config move_group.launch.py
+```
+
+Start Moveit Rviz: 
+```bash
+ros2 launch robot_table_moveit_config moveit_rviz.launch.py 
+```
