@@ -73,21 +73,6 @@ def build_goal(x, y, z, q):
     )
 
 
-def try_move(node, client, x, y, z, q):
-    goal = build_goal(x, y, z, q)
-    future = client.send_goal_async(goal)
-    rclpy.spin_until_future_complete(node, future)
-
-    goal_handle = future.result()
-    if not goal_handle.accepted:
-        return False
-
-    result_future = goal_handle.get_result_async()
-    rclpy.spin_until_future_complete(node, result_future)
-
-    return result_future.result().result.error_code.val == 1
-
-
 def main():
     rclpy.init()
     node = Node('random_pose_mover')
@@ -96,21 +81,28 @@ def main():
     node.get_logger().info('Waiting for /move_action server...')
     client.wait_for_server()
 
-    max_attempts = 20
-    for attempt in range(max_attempts):
-        x = random.uniform(-0.5, 0.5)
-        y = random.uniform(-0.5, 0.5)
-        z = random.uniform(0.95, 1.5)  # ~0.175m above table surface, up to ~0.725m above base
-        q = random_quaternion()
-        node.get_logger().info(f'Attempt {attempt+1}: trying x={x:.2f} y={y:.2f} z={z:.2f}')
+    x = random.uniform(-0.5, 0.5)
+    y = random.uniform(-0.5, 0.5)
+    z = random.uniform(0.95, 1.5)
+    q = random_quaternion()
+    q = Quaternion(x=-0.218, y=-0.361, z=0.821, w=0.384)
+    node.get_logger().info(f'Trying x={x:.2f} y={y:.2f} z={z:.2f}')
 
-        if try_move(node, client, x, y, z, q):
-            node.get_logger().info('Success!')
-            break
-        else:
-            node.get_logger().warn('Planning failed, trying another pose...')
+    goal = build_goal(x, y, z, q)
+    future = client.send_goal_async(goal)
+    rclpy.spin_until_future_complete(node, future)
+
+    goal_handle = future.result()
+    if not goal_handle.accepted:
+        node.get_logger().error('Goal rejected by MoveIt')
     else:
-        node.get_logger().error(f'Could not find a valid pose in {max_attempts} attempts')
+        result_future = goal_handle.get_result_async()
+        rclpy.spin_until_future_complete(node, result_future)
+        error_code = result_future.result().result.error_code.val
+        if error_code == 1:
+            node.get_logger().info('SUCCESS - move complete')
+        else:
+            node.get_logger().error(f'FAILED - error_code={error_code}')
 
     node.destroy_node()
     rclpy.shutdown()
