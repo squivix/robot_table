@@ -1,6 +1,14 @@
 # Robot-Table Setup
-Software prerequisites:
-*TO DO*
+
+## Software Prerequisites
+
+Install all ROS 2 dependencies declared in the package manifests:
+
+```bash
+cd ~/ros2_ws/robot_table
+rosdep update
+rosdep install --from-paths src --ignore-src -y
+```
 
 ## Simulation
 <img src="images/Gazebo_Sim.png" alt="Bildbeschreibung" style="width:100%;"/>
