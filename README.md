@@ -13,8 +13,8 @@ ros2 launch robot_table_gazebo sim_control.launch.py
 > Before launching the Gazebo simulation, some Gazebo environment variables need to be set. 
 
 ```bash
-export GZ_SIM_RESOURCE_PATH=$GZ_SIM_RESOURCE_PATH:~/ros2_ws/install/robot_table_description/share
-export GZ_SIM_RESOURCE_PATH=$GZ_SIM_RESOURCE_PATH:~/ros2_ws/install/robotiq_description/share
+export GZ_SIM_RESOURCE_PATH=$GZ_SIM_RESOURCE_PATH:~/ros2_ws/robot_table/install/robot_table_description/share
+export GZ_SIM_RESOURCE_PATH=$GZ_SIM_RESOURCE_PATH:~/ros2_ws/robot_table/install/robotiq_description/share
 export GZ_SIM_RESOURCE_PATH=$GZ_SIM_RESOURCE_PATH:/opt/ros/jazzy/share
 ```
 
